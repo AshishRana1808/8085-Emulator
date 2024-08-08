@@ -6,15 +6,24 @@
 class simulator8085
 {
 private:
-     map<string,string> Memory;
-     vector<string>sequence;
-     string start;
-     string pc;
-     bool flag[8];
-     string registers[7];
+    map<string,string> Memory;
+	vector<string> sequence;
+    string start; // starting address of the program
+    string pc; // program counter
+    bool flag[8]; // flags 
+	// Bit 7: Sign (S)
+	// Bit 6: Zero (Z)
+	// Bit 5: Auxiliary Carry (AC)
+	// Bit 4: Parity (P)
+	// Bit 3: 1 (Always set)
+	// Bit 2: 0 (Always reset)
+	// Bit 1: 1 (Always set)
+	// Bit 0: Carry (CY)
+
+    string registers[7]; // A, B, C, D, E, H, L
 public :
+
 	simulator8085(){
-		
 		for(int i = 0;i<7;i++)
 			registers[i] = "NULL";
 		
@@ -24,18 +33,23 @@ public :
 		start = "";
 		pc = "";
 	}
+
     void input()
     {
         cout<<"\nEnter the starting address:\n";
         cin>>start;
-        pc = start;
-        if(!validityAddress(start)){
-			
-			cout<<"The memory you entered either does not exist or is reserved by the system\nPlease re-enter the program from a new memory location\nThe program will quit\n";
+        pc = start; // assigns starting address to the program counter
+		cin.ignore(); // clearing the input buffer
+		
+        if(!validityAddress(start))
+		{
+			cout<<"The memory you entered either does not exist or is reserved by the system" << endl;
+			cout << "Please re-enter the program from a new memory location\nThe program will be quitting now.\n"
 			exit(1);
 		}
         sequence.push_back(start);
     }
+	
     void programFileWithDebugger(char* filename)
     {
         ifstream input;

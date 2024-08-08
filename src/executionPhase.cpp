@@ -6,14 +6,16 @@
 class executionPhase
 {
 	public:
-		void executionNormal(string pc,map<string,string>&Memory,vector<string>&sequence,bool flag[],string registers[])
+
+		void executionNormal( string pc, map<string,string> &Memory, vector<string> &sequence, bool flag[], string registers[] )
 		{
 			int size=sequence.size();
 			for(int i=0;i<size;i++)
 			{
-				pc=execution(Memory[sequence[i]],registers,flag,Memory,pc);
+				pc=execution(Memory[sequence[i]], registers, flag, Memory, pc);
 			}
 		}
+
 		void executionDebugger(string pc,map<string,string>&Memory,vector<string>&sequence,bool flag[],string registers[])
 		{
 			string option;
